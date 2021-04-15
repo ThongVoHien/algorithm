@@ -60,12 +60,19 @@ const int si=1000;
 int n, m, k, mark[si];
 vi node[si];
 
+/* 
+    simple and short dfs
+*/
 // warning for multiple edges over two points
-void dfs( int s ){
+void dfs(int s){
     mark[s] = 1;
     for ( auto pos: node[s]) if ( mark[pos]==0 )
-            dfs(pos);
+        dfs(pos);
 }
+
+/* 
+    advance dfs keeps track of in and out value
+*/
 
 //int in[si], out[si], cnt;
 // in[i]: time discovering i/first meet node i
