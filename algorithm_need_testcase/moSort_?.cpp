@@ -1,0 +1,100 @@
+#include <cstdio>
+#include <cstring>
+#include <cctype>
+#include <cmath>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <functional>
+#include <algorithm>
+#include <climits>
+#include <string>
+#include <vector>
+#include <utility>
+#include <map>
+#include <bitset>
+#include <stack>
+#include <queue>
+#include <set>
+#include <list>
+#include <time.h>
+#define fr(a) freopen(a,"r",stdin)
+#define fw(a) freopen(a,"w",stdout)
+#define reset(a) memset(a,0,sizeof(a))
+#define upf(i,m,n) for (int i=m;i<=n;i++)
+#define downf(i,n,m) for (int i=n;i>=m;i--)
+#define all(a) a.begin(),a.end()
+#define PB push_back
+#define INS insert
+#define MP make_pair
+#define MT make_tuple
+#define EB emplace_back
+#define X first
+#define Y second
+#define bug(x) cout << #x << "=" << x <<" ";
+#define line() cout << endl;
+#define noline(x) upf(i,1,x) cout << endl;
+#define Sbug(x) cout << #x << "=" << x <<"\n";
+#define tc() int tc; cin >> tc; for(int _tc=0;_tc<tc;_tc++)
+#define sl(n) scanf("%lld",&n)
+#define slf(n) scanf("%lf",&n)
+#define ss(n) scanf("%s",n)
+#define pl(n) printf("%lld",n)
+#define ps(n) printf("%s",n)
+#define PQ priority_queue
+#define IT iterator
+#define stop() int _stop;cin>>_stop;
+#define PrintAll(x) for (auto i:x) cout<<i<<" ";line();
+#define rep(i, begin, end) for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
+#include <limits.h>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+typedef long double lf;
+typedef pair<int,int>pii;
+typedef pair<ll,ll>pll;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+
+const int si = 1e6+10;
+ll n, k, a[si], q, l[si], r[si], id[si], ans[si], no, f[si], maxi;
+bool MoSort( int x, int y){
+    int S = (int)sqrt(n), l1 = l[x]/S, l2 = l[y]/S;
+    if ( l1 != l2 )
+        return ( l1 < l2 );
+    return r[x] < r[y];
+}
+void add( int ith){
+    if ( ++f[ a[ith] ] == 1) no++;
+}
+void eliminate( int ith){
+    if ( --f[ a[ith] ] == 0) no--;
+}
+int main(){
+    reset(f);
+    sl(n);
+    upf(i,1,n) sl(a[i]);
+    a[0] = 0;
+    sl(q);
+    upf(i,1,q){ id[i] = i; sl(l[i]); sl(r[i]); }
+    sort( id+1, id+q+1, MoSort);
+    int left = 0, right = 0;
+    f[0] = 1;
+    no = 0;
+    upf(i,1,q){
+        while ( right != r[ id[i] ] ){
+            if ( right < r[ id[i] ]) add( ++right );
+            else eliminate( right-- );
+        }
+        while ( left != l[ id[i] ]){
+            if (left < l[ id[i] ]) eliminate( left++ );
+            else add( --left );
+        }
+//        while ( no[maxi]==0) maxi--;
+        ans[ id[i] ] = no+1;
+    }
+    upf(i,1,q) printf("%lld\n",ans[i]);
+}
+
+
+
