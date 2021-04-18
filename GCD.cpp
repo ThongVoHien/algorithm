@@ -9,6 +9,8 @@
 #include <iostream>
 using namespace std;
 
+// Fast GCD algorithm: 
+// + find greatest common divisor
 int GCD(int x,int y)
 {
     if (x <= y) return GCD(y,x);
