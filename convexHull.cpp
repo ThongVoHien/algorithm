@@ -55,6 +55,7 @@ const double inf=1e10+10;
 int n;
 double x[SI],y[SI];
 vi hull;
+
 int findSrc(){
     double tmpx,tmpy;
     int src;
@@ -69,10 +70,12 @@ int findSrc(){
     }
     return src;
 }
+
 double angle(int a, int b){
     return ( (x[a] != x[b]) ? (y[b]-y[a])/(x[b]-x[a]) : (inf) );
 }
-bool sortS( pid a, pid b){
+
+bool sortSecond( pid a, pid b){
     return ( (a.Y != b.Y)  ? (a.Y<b.Y):(a.X<b.X) );
 }
 bool test(int nx){
@@ -80,14 +83,15 @@ bool test(int nx){
     double val = (y[c] - y[p]) * (x[nx] - x[c]) - (x[c] - x[p]) * (y[nx] - y[c]);
     return (val >= 0)? true: false; // > 0: clock, = 0: colinear or < 0: counterclock wise
 }
+
 void ConvexHull(){
-    cin>>n;
-    upf(i,1,n) cin>>x[i]>>y[i];
+    cin >> n;
+    upf(i,1,n) cin >> x[i] >> y[i];
     vector< pid > vd;
     int src = findSrc();
     
     upf(i,1,n) if (i != src) vd.pb({i,angle(src,i)});
-    sort(all(vd),sortS);
+    sort(all(vd),sortSecond);
     vd.pb({src,0});
     hull.pb(src);hull.pb(vd[0].X);
     for (int i = 1;i<vd.size();i++){
@@ -95,7 +99,7 @@ void ConvexHull(){
         hull.pb(vd[i].X);
     }
     hull.pop_back();
-    for (auto i:hull) cout << x[i] << " " << y[i] << endl;
+    for (auto i : hull) cout << x[i] << " " << y[i] << endl;
     hull.clear();
 }
 int main(){

@@ -56,9 +56,6 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 
 
-// Edmonds-Karp Algorithm
-// Complexity O(VE^2)
-
 const int si=1000;
 const int INF = 1000000000;
 
@@ -93,7 +90,9 @@ int bfs(vector<vector<int> >& rGraph, int s, int t, vector<int>& parent) {
 }
 
 /* 
-    find maximum flow using Edmonds-Karp Algorithm
+    Edmonds-Karp Algorithm:
+    + finding maximum flow
+    + Complexity O(VE^2)
 */
 int maxflowEdmondsKarp(vector<vector<int> >& graph, int s, int t) {
     int maximum_flow = 0;
